@@ -79,4 +79,4 @@ Imports are limited to 500 KB, checked for format/version and node types/order, 
 
 MIT, see [LICENSE](LICENSE). All app code, icons, preset artwork, and procedural studies are original. Inspired by [SideFX Houdini](https://www.sidefx.com/products/houdini/), with no affiliation or endorsement and no borrowed product assets or compatible file formats.
 
-The combined `.gitignore` covers Windows, macOS, Linux/Unix, editors, dependencies, builds, local secrets, and test artifacts. This prototype has not been pushed, published, or deployed.
+The combined `.gitignore` covers Windows, macOS, Linux/Unix, editors, dependencies, builds, local secrets, and test artifacts. The app is published at [Kata Fluxgrove](https://intrepion.github.io/kata-app-inspired-by-houdini-codex-dot/). GitHub Actions verifies and deploys the static build on updates to `main`.

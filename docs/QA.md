@@ -1,6 +1,6 @@
 # Verification report
 
-Verified 2026-11-10 against the local prototype. No publication or remote push was performed by this worker.
+Verified 2026-11-10 against the local prototype. The initial QA worker did not publish; the later publication was verified on 2026-11-10.
 
 ## Passed
 
@@ -41,4 +41,4 @@ The browser's direct full-page/clip capture method timed out; native tab screens
 - Playback toggle and scrubbing were verified, but sustained 30 FPS on low-end devices is not guaranteed or benchmarked.
 - Import validation has extensive unit coverage; a separate native malformed-file selection was not exercised.
 - PNG is a still export. There is no video export or physical simulation engine.
-- No deployed-host test or CI result exists yet. Publishing and Tool Shed integration remain a parent-coordinated step.
+- Published runtime commit `045a75ec46b7d70fd39ff10c9a871e04282f4f60` passed checks, build, and GitHub Pages deployment in [run 42740821668](https://github.com/intrepion/kata-app-inspired-by-houdini-codex-dot/actions/runs/42740821668). Public Chromium smoke check passed on 2026-11-10: the point scene rendered and selecting Tidal threads changed the title, point count to 3,800, operator chain, and palette. The Tool Shed catalog and detail page passed local browser checks, including loaded screenshots and app/source/back links.

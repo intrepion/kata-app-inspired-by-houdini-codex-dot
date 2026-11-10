@@ -1,1 +1,36 @@
-{"schemaVersion":1,"kind":"app","title":"Kata Fluxgrove","repository":"kata-app-inspired-by-houdini-codex-dot","section":"Kata Tool Shed","category":"Art & Design","tagline":"Small rules. Wild possibilities.","description":"A local-first procedural point-art studio. Build an editable chain of operators, explore animated seeded forms, and export your favorite frame.","entryPoint":"index.html","status":"local-prototype","toolShedUrl":"https://intrepion.github.io/tools/","features":["Seeded torus, sphere, helix and grid sources","Five reorderable and bypassable deformation operators","Live orbitable 3D point renderer","Eight-second animation timeline","Camera orbit and zoom","Four color stories","30-step undo and redo","Validated project import and export","1600 × 1000 PNG export","Best-effort local autosave","Responsive layout"],"screenshots":["docs/screenshots/desktop.jpg","docs/screenshots/narrow.jpg"],"inspiration":{"name":"Houdini","url":"https://www.sidefx.com/products/houdini/"},"license":"MIT"}
+{
+  "schemaVersion": 1,
+  "kind": "app",
+  "title": "Kata Fluxgrove",
+  "repository": "kata-app-inspired-by-houdini-codex-dot",
+  "section": "Kata Tool Shed",
+  "category": "Art & Design",
+  "tagline": "Small rules. Wild possibilities.",
+  "description": "A local-first procedural point-art studio. Build an editable chain of operators, explore animated seeded forms, and export your favorite frame.",
+  "entryPoint": "index.html",
+  "status": "live",
+  "toolShedUrl": "https://intrepion.github.io/tools/",
+  "features": [
+    "Seeded torus, sphere, helix and grid sources",
+    "Five reorderable and bypassable deformation operators",
+    "Live orbitable 3D point renderer",
+    "Eight-second animation timeline",
+    "Camera orbit and zoom",
+    "Four color stories",
+    "30-step undo and redo",
+    "Validated project import and export",
+    "1600 × 1000 PNG export",
+    "Best-effort local autosave",
+    "Responsive layout"
+  ],
+  "screenshots": [
+    "docs/screenshots/desktop.jpg",
+    "docs/screenshots/narrow.jpg"
+  ],
+  "inspiration": {
+    "name": "Houdini",
+    "url": "https://www.sidefx.com/products/houdini/"
+  },
+  "license": "MIT",
+  "launchUrl": "https://intrepion.github.io/kata-app-inspired-by-houdini-codex-dot/"
+}
