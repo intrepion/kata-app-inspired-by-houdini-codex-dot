@@ -1,0 +1,27 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Fluxgrove browser tests</title><style>body{background:#152129;color:#dbe8dc;font:15px monospace;margin:30px}iframe{width:1100px;height:850px;border:1px solid #456}li{padding:5px}.pass{color:#9ee1aa}.fail{color:#ff8c79}</style><h1>Fluxgrove browser UI tests</h1><p id="result">Running…</p><ol id="results"></ol><iframe src="../index.html" title="App under test"></iframe><script type="module">
+import {render} from '../src/renderer.js';import {generate,preset} from '../src/model.js';
+const results=document.querySelector('#results'),frame=document.querySelector('iframe');let passed=0,failed=0;
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function test(name,fn){try{fn();passed++;const li=document.createElement('li');li.className='pass';li.textContent=`PASS ${name}`;results.append(li);}catch(e){failed++;const li=document.createElement('li');li.className='fail';li.textContent=`FAIL ${name}: ${e.message}`;results.append(li);}}
+const assert=(v,m='Assertion failed')=>{if(!v)throw new Error(m);};
+await new Promise(r=>frame.addEventListener('load',r,{once:true}));await wait(300);
+const doc=frame.contentDocument,$=s=>doc.querySelector(s);frame.contentWindow.confirm=()=>true;
+await new Promise(r=>frame.contentWindow.requestAnimationFrame(()=>frame.contentWindow.requestAnimationFrame(r))); 
+test('canvas has nonblank rendered pixels',()=>{const c=$('#scene');assert(c.width>0);const data=c.getContext('2d').getImageData(0,0,c.width,c.height).data;assert(data.some((v,i)=>i%4===0&&v>100));});
+test('source selection and shape edit',()=>{$('.node').click();$('#shape').value='grid';$('#shape').dispatchEvent(new Event('change'));assert($('.node small').textContent==='grid');});
+test('add operator dialog opens and closes',()=>{$('#add').click();assert($('#operator-dialog').open);$('#operator-options button:last-child').click();assert(!$('#operator-dialog').open);assert($('#inspector h2').textContent==='Stretch');});
+test('bypass and enable update node',()=>{$('#bypass').click();assert($('.node.selected').classList.contains('bypassed'));$('#bypass').click();assert(!$('.node.selected').classList.contains('bypassed'));});
+test('move earlier and later updates selection index',()=>{const before=$('.node.selected .node-index').textContent;$('#earlier').click();assert($('.node.selected .node-index').textContent!==before);$('#later').click();assert($('.node.selected .node-index').textContent===before);});
+test('remove and undo restore operator',()=>{const count=doc.querySelectorAll('button.node').length;$('#remove').click();assert(doc.querySelectorAll('button.node').length===count-1);$('#undo').click();assert(doc.querySelectorAll('button.node').length===count);});
+test('redo removes it again',()=>{$('#redo').click();assert($('#redo').disabled);});
+test('scrub and rewind timeline',()=>{$('#frame').value='150';$('#frame').dispatchEvent(new Event('input'));assert($('#frame-output').textContent==='150');$('#rewind').click();assert($('#frame-output').textContent==='000');});
+test('play toggles',()=>{$('#play').click();assert($('#play').getAttribute('aria-pressed')==='true');$('#play').click();assert($('#play').getAttribute('aria-pressed')==='false');});
+test('palette and title edit',()=>{$('#palette').value='tide';$('#palette').dispatchEvent(new Event('change'));assert($('#color-preview').children.length===4);$('#project-title').value='Browser test';$('#project-title').dispatchEvent(new Event('change'));assert($('#scene-title').textContent==='Browser test');});
+test('title remains text not HTML',()=>{$('#project-title').value='<b>safe</b>';$('#project-title').dispatchEvent(new Event('change'));assert($('#scene-title').textContent==='<b>safe</b>');assert(!$('#scene-title b'));});
+test('help opens and closes',()=>{$('#help').click();assert($('#help-dialog').open);$('#help-dialog .close').click();assert(!$('#help-dialog').open);});
+test('fresh preset replaces state',()=>{$('[data-preset=orchid]').click();assert($('#scene-title').textContent==='Orchid drift');assert(doc.querySelectorAll('button.node').length===4);});
+test('renderer exports a valid 1600 × 1000 PNG',()=>{const c=document.createElement('canvas');c.width=1600;c.height=1000;const p=preset();render(c,generate(p),p,{ratio:2});assert(c.toDataURL('image/png').startsWith('data:image/png;base64,'));});
+await wait(400);test('autosave writes valid project',()=>{const saved=JSON.parse(localStorage.getItem('kata-fluxgrove-v1'));assert(saved.format==='fluxgrove');assert(saved.title==='Orchid drift');});
+$('#project-title').value='Ember bloom';$('[data-preset=ember]').click();await wait(300);
+document.querySelector('#result').textContent=`${passed} passed, ${failed} failed`;
+</script></html>
